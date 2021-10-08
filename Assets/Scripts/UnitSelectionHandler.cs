@@ -6,7 +6,7 @@ public class UnitSelectionHandler : MonoBehaviour {
     [SerializeField] private LayerMask LayerMask = new LayerMask();
     
     private Camera mainCamera;
-    private List<Unit> selectedUnits = new List<Unit>();
+    public readonly List<Unit> selectedUnits = new List<Unit>();
 
     private void Awake() {
         mainCamera = Camera.main;

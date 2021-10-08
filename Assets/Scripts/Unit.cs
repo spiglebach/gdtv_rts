@@ -6,12 +6,17 @@ public class Unit : NetworkBehaviour {
     [SerializeField] private UnityEvent onSelected;
     [SerializeField] private UnityEvent onDeselected;
 
+    private UnitMovement unitMovement;
+
+    private void Awake() {
+        unitMovement = GetComponent<UnitMovement>();
+    }
+
     #region Client
 
     [Client]
     public void Select() {
         if (!hasAuthority) return;
-        Debug.Log("I got selected!");
         onSelected?.Invoke();
     }
     
@@ -22,6 +27,9 @@ public class Unit : NetworkBehaviour {
     }
 
     #endregion
-    
+
+    public UnitMovement GetUnitMovement() {
+        return unitMovement;
+    }
 
 }
