@@ -54,7 +54,8 @@ public class UnitSelectionHandler : MonoBehaviour {
         if (!Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layerMask)) return;
         if (!hit.collider.TryGetComponent(out Unit unit)) return;
         if (!unit.hasAuthority) return;
-        selectedUnits.Add(unit);
+        if (!selectedUnits.Contains(unit))
+            selectedUnits.Add(unit);
     }
     
     private void SelectMultipleUnits() {
@@ -62,6 +63,7 @@ public class UnitSelectionHandler : MonoBehaviour {
         var max = unitSelectionArea.anchoredPosition + (unitSelectionArea.sizeDelta / 2);
 
         foreach (var unit in player.GetUnits()) {
+            if (selectedUnits.Contains(unit)) continue;
             var unitScreenPosition = mainCamera.WorldToScreenPoint(unit.transform.position);
             if (unitScreenPosition.x > min.x && unitScreenPosition.x < max.x
                                              && unitScreenPosition.y > min.y && unitScreenPosition.y < max.y) {
@@ -77,7 +79,8 @@ public class UnitSelectionHandler : MonoBehaviour {
     }
     
     private void StartSelectionArea() {
-        DeselectAll();
+        if (!Keyboard.current.leftShiftKey.isPressed)
+            DeselectAll();
         unitSelectionArea.gameObject.SetActive(true);
         selectionStartPosition = Mouse.current.position.ReadValue();
         UpdateSelectionArea();
