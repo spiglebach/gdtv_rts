@@ -2,7 +2,7 @@ using Mirror;
 using UnityEngine;
 
 public class Targeter : NetworkBehaviour {
-    private Targetable target;
+    [SerializeField] private Targetable target;
 
     #region Server
 

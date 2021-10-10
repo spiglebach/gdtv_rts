@@ -13,9 +13,11 @@ public class Unit : NetworkBehaviour {
     public static event Action<Unit> AuthorityOnUnitDespawned;
 
     private UnitMovement unitMovement;
+    private Targeter targeter;
 
     private void Awake() {
         unitMovement = GetComponent<UnitMovement>();
+        targeter = GetComponent<Targeter>();
     }
 
     #region Server
@@ -58,6 +60,10 @@ public class Unit : NetworkBehaviour {
 
     public UnitMovement GetUnitMovement() {
         return unitMovement;
+    }
+
+    public Targeter GetTargeter() {
+        return targeter;
     }
 
 }

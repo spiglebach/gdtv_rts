@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,7 +16,17 @@ public class UnitCommander : MonoBehaviour {
         var ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
         if (!Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layerMask)) return;
 
-        TryMove(hit.point);
+        if (hit.collider.TryGetComponent(out Targetable target) && !target.hasAuthority) {
+            TryTarget(target);
+        } else {
+            TryMove(hit.point);
+        }
+    }
+
+    private void TryTarget(Targetable target) {
+        foreach (var unit in unitSelectionHandler.selectedUnits) {
+            unit.GetTargeter().CmdSetTarget(target.gameObject);
+        }
     }
 
     private void TryMove(Vector3 point) {

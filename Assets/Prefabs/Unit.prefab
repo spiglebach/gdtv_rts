@@ -485,6 +485,7 @@ GameObject:
   - component: {fileID: 5976080851966992381}
   - component: {fileID: 1773200458271286959}
   - component: {fileID: 7529390406985271460}
+  - component: {fileID: 7589247907176137564}
   m_Layer: 0
   m_Name: Unit
   m_TagString: Untagged
@@ -568,6 +569,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   agent: {fileID: -5851507432451860055}
+  targeter: {fileID: 7589247907176137564}
 --- !u!114 &2555674256341913376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -667,7 +669,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddad1a2da51f2124a9de1c1bcca31649, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   aimAtPoint: {fileID: 8007051602224336023}
+--- !u!114 &7589247907176137564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2867479136236882502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42be7b2b0bb9a2843a5474bdf01f3862, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
 --- !u!1 &3059150507705987856
 GameObject:
   m_ObjectHideFlags: 0
