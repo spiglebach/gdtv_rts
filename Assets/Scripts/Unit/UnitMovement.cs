@@ -6,11 +6,24 @@ using UnityEngine.AI;
 public class UnitMovement : NetworkBehaviour {
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private Targeter targeter;
+    [SerializeField] private float chaseRange = 4f;
     
     #region Server
 
     [ServerCallback]
     private void Update() {
+        var target = targeter.GetTarget();
+        if (target) {
+            var targetPosition = target.transform.position;
+            var squareDistance = (targetPosition - transform.position).sqrMagnitude;
+            if (squareDistance > chaseRange * chaseRange) {
+                agent.SetDestination(targetPosition);
+            } else if (agent.hasPath) {
+                agent.ResetPath();
+            }
+            return;
+        }
+        
         if (!agent.hasPath) return;
         if (agent.remainingDistance <= agent.stoppingDistance) agent.ResetPath();
     }
