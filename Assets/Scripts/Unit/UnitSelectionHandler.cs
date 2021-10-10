@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
@@ -16,6 +15,11 @@ public class UnitSelectionHandler : MonoBehaviour {
 
     private void Awake() {
         mainCamera = Camera.main;
+        Unit.AuthorityOnUnitDespawned += DeselectUnit;
+    }
+
+    private void OnDestroy() {
+        Unit.AuthorityOnUnitDespawned -= DeselectUnit;
     }
 
     void Update() {
@@ -92,5 +96,9 @@ public class UnitSelectionHandler : MonoBehaviour {
         var areaHeight = mousePosition.y - selectionStartPosition.y;
         unitSelectionArea.sizeDelta = new Vector2(Mathf.Abs(areaWidth), Mathf.Abs(areaHeight));
         unitSelectionArea.anchoredPosition = selectionStartPosition + new Vector2(areaWidth / 2, areaHeight / 2);
+    }
+
+    private void DeselectUnit(Unit unit) {
+        selectedUnits.Remove(unit);
     }
 }

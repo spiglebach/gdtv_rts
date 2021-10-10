@@ -98,6 +98,7 @@ MonoBehaviour:
   rb: {fileID: 3721618370393824084}
   launchForce: 10
   lifetime: 5
+  damage: 30
 --- !u!1 &2980375559072846873
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,7 +126,7 @@ Transform:
   m_GameObject: {fileID: 2980375559072846873}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_Children: []
   m_Father: {fileID: 4220715245614451489}
   m_RootOrder: 0

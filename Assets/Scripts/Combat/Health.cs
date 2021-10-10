@@ -23,7 +23,6 @@ public class Health : NetworkBehaviour {
         currentHealth = Mathf.Max(currentHealth - amount, 0);
         if (currentHealth <= 0) {
             ServerOnDie?.Invoke();
-            Debug.Log("We died!");
         }
     }
 

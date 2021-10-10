@@ -14,20 +14,29 @@ public class Unit : NetworkBehaviour {
 
     private UnitMovement unitMovement;
     private Targeter targeter;
+    private Health health;
 
     private void Awake() {
         unitMovement = GetComponent<UnitMovement>();
         targeter = GetComponent<Targeter>();
+        health = GetComponent<Health>();
     }
 
     #region Server
 
     public override void OnStartServer() {
+        health.ServerOnDie += ServerHandleDeath;
         ServerOnUnitSpawned?.Invoke(this);
     }
 
     public override void OnStopServer() {
+        health.ServerOnDie -= ServerHandleDeath;
         ServerOnUnitDespawned?.Invoke(this);
+    }
+    
+    [Server]
+    private void ServerHandleDeath() {
+        NetworkServer.Destroy(gameObject);
     }
 
     #endregion
@@ -46,13 +55,12 @@ public class Unit : NetworkBehaviour {
         onDeselected?.Invoke();
     }
 
-    public override void OnStartClient() {
-        if (!isClientOnly || !hasAuthority) return;
+    public override void OnStartAuthority() {
         AuthorityOnUnitSpawned?.Invoke(this);
     }
 
     public override void OnStopClient() {
-        if (!isClientOnly || !hasAuthority) return;
+        if (!hasAuthority) return;
         AuthorityOnUnitDespawned?.Invoke(this);
     }
 
