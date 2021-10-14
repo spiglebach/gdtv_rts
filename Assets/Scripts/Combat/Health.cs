@@ -14,7 +14,12 @@ public class Health : NetworkBehaviour {
     #region Server
 
     public override void OnStartServer() {
+        UnitBase.ServerOnPlayerDefeated += SelfDestruct;
         currentHealth = maxHealth;
+    }
+
+    public override void OnStopServer() {
+        UnitBase.ServerOnPlayerDefeated -= SelfDestruct;
     }
 
     [Server]
@@ -24,6 +29,12 @@ public class Health : NetworkBehaviour {
         if (currentHealth <= 0) {
             ServerOnDie?.Invoke();
         }
+    }
+
+    [Server]
+    private void SelfDestruct(int defeatedPlayerConnectionId) {
+        if (connectionToClient.connectionId != defeatedPlayerConnectionId) return;
+        DealDamage(currentHealth);
     }
 
     #endregion

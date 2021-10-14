@@ -10,6 +10,14 @@ public class UnitMovement : NetworkBehaviour {
     
     #region Server
 
+    public override void OnStartServer() {
+        GameOverHandler.ServerOnGameOver += ResetPath;
+    }
+
+    public override void OnStopServer() {
+        GameOverHandler.ServerOnGameOver -= ResetPath;
+    }
+
     [ServerCallback]
     private void Update() {
         var target = targeter.GetTarget();
@@ -19,7 +27,7 @@ public class UnitMovement : NetworkBehaviour {
             if (squareDistance > chaseRange * chaseRange) {
                 agent.SetDestination(targetPosition);
             } else if (agent.hasPath) {
-                agent.ResetPath();
+                ResetPath();
             }
             return;
         }
@@ -33,6 +41,11 @@ public class UnitMovement : NetworkBehaviour {
         targeter.ClearTarget();
         if (!NavMesh.SamplePosition(position, out NavMeshHit hit, 1f, NavMesh.AllAreas)) return;
         agent.SetDestination(hit.position);
+    }
+
+    [Server]
+    private void ResetPath() {
+        agent.ResetPath();
     }
 
     #endregion

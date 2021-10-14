@@ -4,6 +4,7 @@ using Mirror;
 public class UnitBase : NetworkBehaviour {
     private Health health;
 
+    public static event Action<int> ServerOnPlayerDefeated; 
     public static event Action<UnitBase> ServerOnBaseSpawned; 
     public static event Action<UnitBase> ServerOnBaseDespawned; 
 
@@ -27,6 +28,8 @@ public class UnitBase : NetworkBehaviour {
 
     [Server]
     private void DestroyBuilding() {
+        ServerOnPlayerDefeated?.Invoke(connectionToClient.connectionId);
+        
         NetworkServer.Destroy(gameObject);
     }
 

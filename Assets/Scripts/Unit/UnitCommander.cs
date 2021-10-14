@@ -11,6 +11,14 @@ public class UnitCommander : MonoBehaviour {
         mainCamera = Camera.main;
     }
 
+    private void Start() {
+        GameOverHandler.ClientOnGameOver += DisableUnitCommander;
+    }
+
+    private void OnDestroy() {
+        GameOverHandler.ClientOnGameOver -= DisableUnitCommander;
+    }
+
     void Update() {
         if (!Mouse.current.rightButton.wasPressedThisFrame) return;
         var ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
@@ -33,5 +41,9 @@ public class UnitCommander : MonoBehaviour {
         foreach (var unit in unitSelectionHandler.selectedUnits) {
             unit.GetUnitMovement().CmdMove(point);
         }
+    }
+
+    private void DisableUnitCommander(string winnerName) {
+        enabled = false;
     }
 }

@@ -16,10 +16,12 @@ public class UnitSelectionHandler : MonoBehaviour {
     private void Awake() {
         mainCamera = Camera.main;
         Unit.AuthorityOnUnitDespawned += DeselectUnit;
+        GameOverHandler.ClientOnGameOver += DisableUnitSelection;
     }
 
     private void OnDestroy() {
         Unit.AuthorityOnUnitDespawned -= DeselectUnit;
+        GameOverHandler.ClientOnGameOver -= DisableUnitSelection;
     }
 
     void Update() {
@@ -100,5 +102,9 @@ public class UnitSelectionHandler : MonoBehaviour {
 
     private void DeselectUnit(Unit unit) {
         selectedUnits.Remove(unit);
+    }
+    
+    private void DisableUnitSelection(string winnerName) {
+        enabled = false;
     }
 }
