@@ -3,6 +3,7 @@ using Mirror;
 using UnityEngine;
 
 public class Building : NetworkBehaviour {
+    [SerializeField] private GameObject buildingPreview;
     [SerializeField] private Sprite icon;
     [SerializeField] private int id = -1;
     [SerializeField] private int price = 100;
@@ -48,5 +49,9 @@ public class Building : NetworkBehaviour {
 
     public int GetPrice() {
         return price;
+    }
+
+    public GameObject GetBuildingPreview() {
+        return buildingPreview;
     }
 }
