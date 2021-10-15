@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2498435882327733124}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 8025371649328787778}
   - component: {fileID: 3598823640367623446}
   - component: {fileID: 354182850098679570}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 5998204777264620060}
   - component: {fileID: 4264158845948066918}
   - component: {fileID: 155570571463821447}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -206,7 +206,7 @@ GameObject:
   - component: {fileID: 7224384374456125206}
   - component: {fileID: 5298128868202990872}
   - component: {fileID: 9085475049517469704}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Capsule (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -287,7 +287,7 @@ GameObject:
   - component: {fileID: 3061907267682255092}
   - component: {fileID: 6533663552316889656}
   - component: {fileID: 1676573280310125695}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cylinder (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -366,7 +366,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3815676273566200936}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -400,7 +400,7 @@ GameObject:
   - component: {fileID: 2867479135881347455}
   - component: {fileID: 2867479135881347426}
   - component: {fileID: 2867479135881347425}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -490,7 +490,7 @@ GameObject:
   - component: {fileID: 3628298753593055415}
   - component: {fileID: -2702917966788882811}
   - component: {fileID: 6892949566079144065}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Unit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -753,7 +753,7 @@ GameObject:
   - component: {fileID: 3075759892252509594}
   - component: {fileID: 8696406442269730403}
   - component: {fileID: 4450345190159481192}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -832,7 +832,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8007051602224336023}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AimAtPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -863,7 +863,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3618491229536004725}
   - component: {fileID: 9033551332202554628}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Selection Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -944,7 +944,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5083651653290870382}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ProjectileSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -976,7 +976,7 @@ GameObject:
   - component: {fileID: 1448107529684462062}
   - component: {fileID: 1005998115365460514}
   - component: {fileID: 7415760999068889148}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1057,7 +1057,7 @@ GameObject:
   - component: {fileID: 7823741472135444}
   - component: {fileID: 1854972069319515772}
   - component: {fileID: 186680173025348511}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1137,6 +1137,10 @@ PrefabInstance:
     - target: {fileID: 3660192677717843450, guid: 739feb8f5b922af41b7ced3fb16e3d22, type: 3}
       propertyPath: m_Name
       value: HealhBarCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 3660192677717843450, guid: 739feb8f5b922af41b7ced3fb16e3d22, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3660192677717843450, guid: 739feb8f5b922af41b7ced3fb16e3d22, type: 3}
       propertyPath: m_IsActive
@@ -1225,6 +1229,14 @@ PrefabInstance:
     - target: {fileID: 3660192677717843454, guid: 739feb8f5b922af41b7ced3fb16e3d22, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3660192677906184888, guid: 739feb8f5b922af41b7ced3fb16e3d22, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3660192678318636986, guid: 739feb8f5b922af41b7ced3fb16e3d22, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 739feb8f5b922af41b7ced3fb16e3d22, type: 3}
