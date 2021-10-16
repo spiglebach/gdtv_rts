@@ -28,6 +28,11 @@ public class RtsPlayer : NetworkBehaviour {
         resources += amount;
     }
 
+    [Server]
+    public void DecreaseResources(int amount) {
+        resources -= amount;
+    }
+
     #region Server
 
     public override void OnStartServer() {
@@ -49,7 +54,7 @@ public class RtsPlayer : NetworkBehaviour {
         var buildingToPlace = GetBuildingById(buildingId);
         if (!buildingToPlace) return;
         if (buildingToPlace.GetPrice() > resources) return;
-        resources -= buildingToPlace.GetPrice();
+        DecreaseResources(buildingToPlace.GetPrice());
         var buildingInstance = Instantiate(buildingToPlace.gameObject, position, Quaternion.identity);
         NetworkServer.Spawn(buildingInstance, connectionToClient);
     }
