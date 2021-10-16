@@ -23,6 +23,11 @@ public class RtsPlayer : NetworkBehaviour {
         return resources;
     }
 
+    [Server]
+    public void IncreaseResources(int amount) {
+        resources += amount;
+    }
+
     #region Server
 
     public override void OnStartServer() {
