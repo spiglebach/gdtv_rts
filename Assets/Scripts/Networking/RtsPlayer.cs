@@ -48,6 +48,8 @@ public class RtsPlayer : NetworkBehaviour {
     public void CmdTryPlaceBuilding(int buildingId, Vector3 position) {
         var buildingToPlace = GetBuildingById(buildingId);
         if (!buildingToPlace) return;
+        if (buildingToPlace.GetPrice() > resources) return;
+        resources -= buildingToPlace.GetPrice();
         var buildingInstance = Instantiate(buildingToPlace.gameObject, position, Quaternion.identity);
         NetworkServer.Spawn(buildingInstance, connectionToClient);
     }
