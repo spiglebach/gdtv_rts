@@ -5,6 +5,7 @@ using UnityEngine;
 public class RtsPlayer : NetworkBehaviour {
     [SerializeField] private List<Unit> myUnits = new List<Unit>();
     [SerializeField] private List<Building> myBuildings = new List<Building>();
+    [SerializeField] private Building[] buildableBuildings = new Building[0];
 
     public List<Unit> GetUnits() {
         return myUnits;
@@ -28,6 +29,21 @@ public class RtsPlayer : NetworkBehaviour {
         Unit.ServerOnUnitDespawned -= ServerHandleUnitDespawned;
         Building.ServerOnBuildingSpawned -= ServerHandleBuildingSpawned;
         Building.ServerOnBuildingDespawned -= ServerHandleBuildingDespawned;
+    }
+
+    [Command]
+    public void CmdTryPlaceBuilding(int buildingId, Vector3 position) {
+        var buildingToPlace = GetBuildingById(buildingId);
+        if (!buildingToPlace) return;
+        var buildingInstance = Instantiate(buildingToPlace.gameObject, position, Quaternion.identity);
+        NetworkServer.Spawn(buildingInstance, connectionToClient);
+    }
+
+    private Building GetBuildingById(int buildingId) {
+        foreach (var building in buildableBuildings) {
+            if (building.GetId() == buildingId) return building;
+        }
+        return null;
     }
 
     private void ServerHandleUnitSpawned(Unit unit) {
