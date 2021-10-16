@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class RtsPlayer : NetworkBehaviour {
     private Color teamColor;
+    [SerializeField] private Transform cameraTransform;
     [SerializeField] private List<Unit> myUnits = new List<Unit>();
     [SerializeField] private List<Building> myBuildings = new List<Building>();
     [SerializeField] private Building[] buildableBuildings = new Building[0];
@@ -28,6 +29,10 @@ public class RtsPlayer : NetworkBehaviour {
 
     public Color GetTeamColor() {
         return teamColor;
+    }
+
+    public Transform GetCameraTransform() {
+        return cameraTransform;
     }
 
     #region Server

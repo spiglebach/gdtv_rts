@@ -108,6 +108,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  cameraTransform: {fileID: 7030814479448572137}
   myUnits: []
   myBuildings: []
   buildableBuildings:
@@ -134,8 +135,8 @@ MonoBehaviour:
   playerCameraTransform: {fileID: 7030814479448572137}
   speed: 20
   screenBorderThickness: 10
-  screenXLimits: {x: -20, y: 2}
-  screenZLimits: {x: -30, y: -10}
+  screenXLimits: {x: -10, y: 10}
+  screenZLimits: {x: -25, y: -5}
 --- !u!1 &5745708748238730062
 GameObject:
   m_ObjectHideFlags: 0
