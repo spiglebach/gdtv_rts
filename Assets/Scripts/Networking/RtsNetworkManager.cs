@@ -8,6 +8,9 @@ public class RtsNetworkManager : NetworkManager {
     
     public override void OnServerAddPlayer(NetworkConnection conn) {
         base.OnServerAddPlayer(conn);
+        var player = conn.identity.GetComponent<RtsPlayer>();
+        player.SetTeamColor(Random.ColorHSV());
+        
         var playerTransform = conn.identity.transform;
         var unitSpawnerInstance = Instantiate(unitSpawnerPrefab, playerTransform.position, playerTransform.rotation);
         NetworkServer.Spawn(unitSpawnerInstance, conn);

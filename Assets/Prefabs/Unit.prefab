@@ -490,6 +490,7 @@ GameObject:
   - component: {fileID: 3628298753593055415}
   - component: {fileID: -2702917966788882811}
   - component: {fileID: 6892949566079144065}
+  - component: {fileID: 534442622352568949}
   m_Layer: 8
   m_Name: Unit
   m_TagString: Untagged
@@ -620,6 +621,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 1
+  resourceCost: 10
 --- !u!114 &5976080851966992381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -742,6 +744,24 @@ MonoBehaviour:
   health: {fileID: -2702917966788882811}
   healthBarParent: {fileID: 8581737901823696089}
   healthBarImage: {fileID: 8581737902026030747}
+--- !u!114 &534442622352568949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2867479136236882502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1826c7719b3ba94f86ccbef6df5258e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  colorRenderers:
+  - {fileID: 2867479135881347425}
+  - {fileID: 4450345190159481192}
+  - {fileID: 9085475049517469704}
 --- !u!1 &3059150507705987856
 GameObject:
   m_ObjectHideFlags: 0

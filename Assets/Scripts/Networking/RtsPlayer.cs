@@ -4,6 +4,7 @@ using Mirror;
 using UnityEngine;
 
 public class RtsPlayer : NetworkBehaviour {
+    private Color teamColor;
     [SerializeField] private List<Unit> myUnits = new List<Unit>();
     [SerializeField] private List<Building> myBuildings = new List<Building>();
     [SerializeField] private Building[] buildableBuildings = new Building[0];
@@ -25,14 +26,8 @@ public class RtsPlayer : NetworkBehaviour {
         return resources;
     }
 
-    [Server]
-    public void IncreaseResources(int amount) {
-        resources += amount;
-    }
-
-    [Server]
-    public void DecreaseResources(int amount) {
-        resources -= amount;
+    public Color GetTeamColor() {
+        return teamColor;
     }
 
     #region Server
@@ -87,6 +82,21 @@ public class RtsPlayer : NetworkBehaviour {
     private void ServerHandleBuildingDespawned(Building building) {
         if (building.connectionToClient.connectionId != connectionToClient.connectionId) return;
         myBuildings.Remove(building);
+    }
+    
+    [Server]
+    public void IncreaseResources(int amount) {
+        resources += amount;
+    }
+
+    [Server]
+    public void DecreaseResources(int amount) {
+        resources -= amount;
+    }
+
+    [Server]
+    public void SetTeamColor(Color teamColor) {
+        this.teamColor = teamColor;
     }
 
     #endregion
