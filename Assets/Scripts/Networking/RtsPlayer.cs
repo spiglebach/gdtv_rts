@@ -7,6 +7,8 @@ public class RtsPlayer : NetworkBehaviour {
     [SerializeField] private List<Unit> myUnits = new List<Unit>();
     [SerializeField] private List<Building> myBuildings = new List<Building>();
     [SerializeField] private Building[] buildableBuildings = new Building[0];
+    [SerializeField] private LayerMask buildingBlockLayer = new LayerMask();
+    [SerializeField] private float buildingRangeLimit = 5f;
 
     [SyncVar(hook = nameof(ClientHandleResourcesUpdated))] private int resources = 500;
     public event Action<int> ClientOnResourcesUpdated; 
@@ -53,7 +55,8 @@ public class RtsPlayer : NetworkBehaviour {
     public void CmdTryPlaceBuilding(int buildingId, Vector3 position) {
         var buildingToPlace = GetBuildingById(buildingId);
         if (!buildingToPlace) return;
-        if (buildingToPlace.GetPrice() > resources) return;
+        if (!CanPlaceBuildingAtPosition(buildingToPlace, position)) return;
+        
         DecreaseResources(buildingToPlace.GetPrice());
         var buildingInstance = Instantiate(buildingToPlace.gameObject, position, Quaternion.identity);
         NetworkServer.Spawn(buildingInstance, connectionToClient);
@@ -128,4 +131,31 @@ public class RtsPlayer : NetworkBehaviour {
 
     #endregion
 
+    public bool CanPlaceBuildingAtPosition(Building building, Vector3 position) {
+        return CanAffordResourceCost(building.GetPrice())
+               && !IsBuildingBlockedBySomethingAtPosition(building, position)
+               && IsPositionInRangeOfAnyOwnedBuilding(position);
+    }
+    
+    private bool CanAffordResourceCost(int cost) {
+        return resources >= cost;
+    }
+
+    private bool IsBuildingBlockedBySomethingAtPosition(Building building, Vector3 position) {
+        var buildingCollider = building.GetComponent<BoxCollider>();
+        return Physics.CheckBox(position + buildingCollider.center,
+            buildingCollider.size / 2,
+            Quaternion.identity,
+            buildingBlockLayer);
+    }
+
+    private bool IsPositionInRangeOfAnyOwnedBuilding(Vector3 position) {
+        foreach (var building in myBuildings) {
+            if ((position - building.transform.position).sqrMagnitude <= buildingRangeLimit * buildingRangeLimit) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
 }

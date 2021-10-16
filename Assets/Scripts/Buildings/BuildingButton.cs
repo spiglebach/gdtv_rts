@@ -57,6 +57,8 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         var ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
         if (!Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, floorMask)) return;
         buildingPreviewInstance.transform.position = hit.point;
+        buildingPreviewRenderer.material.color =
+            player.CanPlaceBuildingAtPosition(building, hit.point) ? Color.green : Color.red;
         if (!buildingPreviewInstance.activeSelf) {
             buildingPreviewInstance.SetActive(true);
         }
