@@ -3928,6 +3928,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lobbyUi: {fileID: 170253061}
   startGameButton: {fileID: 1012440462}
+  playerNameTexts:
+  - {fileID: 782532096}
+  - {fileID: 1953375980}
+  - {fileID: 271547988}
+  - {fileID: 279540955}
+  emptyPlayerSlotText: Waiting for players...
 --- !u!1 &2113307350
 GameObject:
   m_ObjectHideFlags: 0

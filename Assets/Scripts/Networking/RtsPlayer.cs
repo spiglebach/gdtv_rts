@@ -14,9 +14,11 @@ public class RtsPlayer : NetworkBehaviour {
     [SyncVar(hook = nameof(ClientHandleResourcesUpdated))] private int resources = 500;
     public event Action<int> ClientOnResourcesUpdated; 
     public static event Action<bool> AuthorityOnLobbyOwnerChanged; 
+    public static event Action OnClientOnInfoUpdated; 
     
     private Color teamColor;
     [SyncVar(hook = nameof(AuthorityHandleLobbyOwnerStateUpdated))]private bool isLobbyOwner = false;
+    [SyncVar(hook = nameof(ClientHandleDisplayNameUpdated))] private string displayName;
 
     public List<Unit> GetUnits() {
         return myUnits;
@@ -40,6 +42,10 @@ public class RtsPlayer : NetworkBehaviour {
 
     public bool IsLobbyOwner() {
         return isLobbyOwner;
+    }
+
+    public string GetDisplayName() {
+        return displayName;
     }
 
     #region Server
@@ -123,6 +129,11 @@ public class RtsPlayer : NetworkBehaviour {
     public void SetTeamColor(Color teamColor) {
         this.teamColor = teamColor;
     }
+    
+    [Server]
+    public void SetDisplayName(string newName) {
+        displayName = newName;
+    }
 
     #endregion
 
@@ -143,6 +154,7 @@ public class RtsPlayer : NetworkBehaviour {
     }
 
     public override void OnStopClient() {
+        OnClientOnInfoUpdated?.Invoke();
         if (!isClientOnly) return;
         ((RtsNetworkManager) NetworkManager.singleton).Players.Remove(this);
         if (!hasAuthority) return;
@@ -175,6 +187,10 @@ public class RtsPlayer : NetworkBehaviour {
 
     private void ClientHandleResourcesUpdated(int oldResources, int newResources) {
         ClientOnResourcesUpdated?.Invoke(newResources);
+    }
+
+    private void ClientHandleDisplayNameUpdated(string oldName, string newName) {
+        OnClientOnInfoUpdated?.Invoke();
     }
 
     #endregion

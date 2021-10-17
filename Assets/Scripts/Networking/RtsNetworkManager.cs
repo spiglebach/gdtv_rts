@@ -51,6 +51,7 @@ public class RtsNetworkManager : NetworkManager {
         base.OnServerAddPlayer(conn);
         var player = conn.identity.GetComponent<RtsPlayer>();
         Players.Add(player);
+        player.SetDisplayName($"Player {Players.Count}");
         player.SetTeamColor(Random.ColorHSV());
         player.SetLobbyOwner(Players.Count < 2);
     }
