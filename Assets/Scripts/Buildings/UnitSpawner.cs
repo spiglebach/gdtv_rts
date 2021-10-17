@@ -50,7 +50,6 @@ public class UnitSpawner : NetworkBehaviour, IPointerClickHandler {
         if (!queueDisplayParent.activeSelf) queueDisplayParent.SetActive(true);
     }
 
-    [ServerCallback]
     private void Update() {
         if (isServer) {
             ProduceUnits();
@@ -92,6 +91,7 @@ public class UnitSpawner : NetworkBehaviour, IPointerClickHandler {
     }
 
     private void UpdateTimerDisplay() {
+        if (queuedUnits > 0 && !queueDisplayParent.activeSelf) queueDisplayParent.SetActive(true);
         var newProgress = unitTimer / unitSpawnDuration;
         if (newProgress > unitProgressImage.fillAmount) {
             unitProgressImage.fillAmount = newProgress;
