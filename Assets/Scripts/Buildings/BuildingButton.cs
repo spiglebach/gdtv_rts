@@ -19,14 +19,10 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         mainCamera = Camera.main;
         iconImage.sprite = building.GetIcon();
         costText.text = building.GetPrice().ToString();
+        player = NetworkClient.connection.identity.GetComponent<RtsPlayer>();
     }
 
     private void Update() {
-        if (!player) {
-            player = NetworkClient.connection.identity.GetComponent<RtsPlayer>();
-            if (!player) return;
-        }
-
         if (!buildingPreviewInstance) return;
         
         UpdateBuildingPreview();

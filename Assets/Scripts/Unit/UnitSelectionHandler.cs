@@ -17,6 +17,7 @@ public class UnitSelectionHandler : MonoBehaviour {
         mainCamera = Camera.main;
         Unit.AuthorityOnUnitDespawned += DeselectUnit;
         GameOverHandler.ClientOnGameOver += DisableUnitSelection;
+        player = NetworkClient.connection.identity.GetComponent<RtsPlayer>();
     }
 
     private void OnDestroy() {
@@ -25,10 +26,6 @@ public class UnitSelectionHandler : MonoBehaviour {
     }
 
     void Update() {
-        if (!player) {
-            player = NetworkClient.connection.identity.GetComponent<RtsPlayer>();
-            if (!player) return;
-        }
         if (Mouse.current.leftButton.wasPressedThisFrame) {
             StartSelectionArea();
         } else if (Mouse.current.leftButton.wasReleasedThisFrame) {

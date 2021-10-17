@@ -6,14 +6,10 @@ public class ResourcesDisplay : MonoBehaviour {
     [SerializeField] private Text resourcesText;
     private RtsPlayer player;
 
-    private void Update() {
-        if (!player) {
-            player = NetworkClient.connection.identity.GetComponent<RtsPlayer>();
-            if (player) {
-                player.ClientOnResourcesUpdated += DisplayResources;
-                DisplayResources(player.GetResources());
-            }
-        }
+    private void Start() {
+        player = NetworkClient.connection.identity.GetComponent<RtsPlayer>();
+        player.ClientOnResourcesUpdated += DisplayResources;
+        DisplayResources(player.GetResources());
     }
 
     private void OnDestroy() {
