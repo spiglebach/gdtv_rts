@@ -1763,7 +1763,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1012440461
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1827,7 +1827,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1012440463}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2069097104}
+        m_TargetAssemblyTypeName: LobbyMenu, Assembly-CSharp
+        m_MethodName: StartGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1012440463
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2471,6 +2483,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: NetworkManager
       objectReference: {fileID: 0}
+    - target: {fileID: 3263661689410246438, guid: ed97f4c194e7f464e9704f21e7853389, type: 3}
+      propertyPath: basePrefab
+      value: 
+      objectReference: {fileID: 8653328987780451537, guid: cbcbabca2a4eeec43a0f942f18908983, type: 3}
     - target: {fileID: 3263661689410246439, guid: ed97f4c194e7f464e9704f21e7853389, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -3911,6 +3927,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lobbyUi: {fileID: 170253061}
+  startGameButton: {fileID: 1012440462}
 --- !u!1 &2113307350
 GameObject:
   m_ObjectHideFlags: 0

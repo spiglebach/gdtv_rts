@@ -4,7 +4,6 @@ using Mirror;
 using UnityEngine;
 
 public class RtsPlayer : NetworkBehaviour {
-    private Color teamColor;
     [SerializeField] private Transform cameraTransform;
     [SerializeField] private List<Unit> myUnits = new List<Unit>();
     [SerializeField] private List<Building> myBuildings = new List<Building>();
@@ -14,6 +13,10 @@ public class RtsPlayer : NetworkBehaviour {
 
     [SyncVar(hook = nameof(ClientHandleResourcesUpdated))] private int resources = 500;
     public event Action<int> ClientOnResourcesUpdated; 
+    public static event Action<bool> AuthorityOnLobbyOwnerChanged; 
+    
+    private Color teamColor;
+    [SyncVar(hook = nameof(AuthorityHandleLobbyOwnerStateUpdated))]private bool isLobbyOwner = false;
 
     public List<Unit> GetUnits() {
         return myUnits;
@@ -35,6 +38,10 @@ public class RtsPlayer : NetworkBehaviour {
         return cameraTransform;
     }
 
+    public bool IsLobbyOwner() {
+        return isLobbyOwner;
+    }
+
     #region Server
 
     public override void OnStartServer() {
@@ -49,6 +56,12 @@ public class RtsPlayer : NetworkBehaviour {
         Unit.ServerOnUnitDespawned -= ServerHandleUnitDespawned;
         Building.ServerOnBuildingSpawned -= ServerHandleBuildingSpawned;
         Building.ServerOnBuildingDespawned -= ServerHandleBuildingDespawned;
+    }
+
+    [Command]
+    public void CmdStartGame() {
+        if (!isLobbyOwner) return;
+        ((RtsNetworkManager) NetworkManager.singleton).StartGame();
     }
 
     [Command]
@@ -88,7 +101,7 @@ public class RtsPlayer : NetworkBehaviour {
         if (building.connectionToClient.connectionId != connectionToClient.connectionId) return;
         myBuildings.Remove(building);
     }
-    
+
     [Server]
     public void IncreaseResources(int amount) {
         resources += amount;
@@ -97,6 +110,11 @@ public class RtsPlayer : NetworkBehaviour {
     [Server]
     public void DecreaseResources(int amount) {
         resources -= amount;
+    }
+
+    [Server]
+    public void SetLobbyOwner(bool state) {
+        isLobbyOwner = state;
     }
 
     [Server]
@@ -116,12 +134,24 @@ public class RtsPlayer : NetworkBehaviour {
         Building.AuthorityOnBuildingDespawned += AuthorityHandleBuildingDespawned;
     }
 
+    public override void OnStartClient() {
+        if (NetworkServer.active) return;
+        ((RtsNetworkManager) NetworkManager.singleton).Players.Add(this);
+    }
+
     public override void OnStopClient() {
-        if (!isClientOnly || !hasAuthority) return;
+        if (!isClientOnly) return;
+        ((RtsNetworkManager) NetworkManager.singleton).Players.Remove(this);
+        if (!hasAuthority) return;
         Unit.AuthorityOnUnitSpawned -= AuthorityHandleUnitSpawned;
         Unit.AuthorityOnUnitDespawned -= AuthorityHandleUnitDespawned;
         Building.AuthorityOnBuildingSpawned -= AuthorityHandleBuildingSpawned;
         Building.AuthorityOnBuildingDespawned -= AuthorityHandleBuildingDespawned;
+    }
+
+    private void AuthorityHandleLobbyOwnerStateUpdated(bool oldState, bool newState) {
+        if (!hasAuthority) return;
+        AuthorityOnLobbyOwnerChanged?.Invoke(newState);
     }
     
     private void AuthorityHandleUnitSpawned(Unit unit) {
